@@ -1,0 +1,25 @@
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Заголовок">
+    <textarea name="content" placeholder="Текст объявления"></textarea>
+    <input type="text" name="author_name" placeholder="Автор">
+    <button type="submit">Создать</button>
+</form>
+
+
+
+
+<h1>Список всех объявлений</h1>
+{% for notice in notices %}
+    <div style="border: 1px solid #000; margin-bottom: 10px; padding: 10px;">
+        <h3>{{ notice.title }}</h3>
+        
+        <P>{{notice.content}}</P>
+
+        <p>Автор: {{ notice.author_name }} | Дата: {{ notice.created_at }}</p>
+
+        <p><a href="{% url 'notice_detail' notice.pk %}">читать далее ===></a></p>
+    </div>
+{% empty %}
+    <p>Объявлений пока нет.</p>
+{% endfor %}
